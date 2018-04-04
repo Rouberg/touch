@@ -1,0 +1,38 @@
+// 弹性盒部分
+
+%flex {
+  display: flex;
+}
+
+// flex: 水平方向左对齐 垂直方向居中
+%flex-left {
+  @extend %flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+// flex: 水平方向和垂直方向都居中
+%flex-center {
+  @extend %flex;
+  justify-content: center;
+  align-items: center;
+}
+
+%flex-justify {
+  @extend %flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+%flex-right {
+  @extend %flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+%column-flex-justify {
+  @extend %flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: baseline;
+}

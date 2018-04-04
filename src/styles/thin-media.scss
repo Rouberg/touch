@@ -1,0 +1,240 @@
+// 一个物理像素(非逻辑像素)为1px的水平线条
+%height-thin {
+  height: 1px;
+  transform-origin: bottom;
+}
+
+// 一个物理像素(非逻辑像素)为1px的垂直线条
+%width-thin {
+  width: 1px;
+}
+
+// 绝对定位的伪元素
+%pseudo-absolute {
+  content: ' ';
+  position: absolute;
+  box-sizing: border-box;
+}
+
+// 薄高度(一个物理像素)的伪元素
+%pseudo-height-thin {
+  width: 100%;
+  @extend %pseudo-absolute;
+  @extend %height-thin;
+}
+
+// 薄宽度(一个物理像素)的伪元素
+%pseudo-width-thin {
+  height: 100%;
+  @extend %pseudo-absolute;
+  @extend %width-thin;
+}
+
+// 位于元素顶部、使用before伪元素构建的薄线条(一个物理像素)
+%top-before-thin {
+  position: relative;
+
+  &::before {
+    left: 0;
+    top: 0;
+    @extend %pseudo-height-thin;
+  }
+}
+
+// 位于元素顶部、使用after伪元素构建的薄线条(一个物理像素)
+%top-after-thin {
+  position: relative;
+
+  &::after {
+    left: 0;
+    top: 0;
+    @extend %pseudo-height-thin;
+  }
+}
+
+// 位于元素底部、使用before伪元素构建的薄线条(一个物理像素)
+%bottom-before-thin {
+  position: relative;
+
+  &::before {
+    left: 0;
+    bottom: 0;
+    @extend %pseudo-height-thin;
+  }
+}
+
+// 位于元素底部、使用after伪元素构建的薄线条(一个物理像素)
+%bottom-after-thin {
+  position: relative;
+
+  &::after {
+    left: 0;
+    bottom: 0;
+    @extend %pseudo-height-thin;
+  }
+}
+
+// 位于元素左边、使用before伪元素构建的薄线条(一个物理像素)
+%left-before-thin {
+  position: relative;
+
+  &::before {
+    left: 0;
+    top: 0;
+    transform-origin: left;
+    @extend %pseudo-width-thin;
+  }
+}
+
+// 位于元素左边、使用after伪元素构建的薄线条(一个物理像素)
+%left-after-thin {
+  position: relative;
+
+  &::after {
+    left: 0;
+    top: 0;
+    transform-origin: left;
+    @extend %pseudo-width-thin;
+  }
+}
+
+// 位于元素右边、使用before伪元素构建的薄线条(一个物理像素)
+%right-before-thin {
+  position: relative;
+
+  &::before {
+    right: 0;
+    top: 0;
+    transform-origin: right;
+    @extend %pseudo-width-thin;
+  }
+}
+
+// 位于元素右边、使用before伪元素构建的薄线条(一个物理像素)
+%right-after-thin {
+  position: relative;
+
+  &::after {
+    right: 0;
+    top: 0;
+    transform-origin: right;
+    @extend %pseudo-width-thin;
+  }
+}
+
+/**
+ * 顶部、左边默认使用before伪元素实现薄线条
+ * 底部、右边默认使用after伪元素实现薄线条
+ */
+
+%left-thin {
+  @extend %left-before-thin;
+}
+
+%right-thin {
+  @extend %right-after-thin;
+}
+
+%top-thin {
+  @extend %top-before-thin;
+}
+
+%bottom-thin {
+  @extend %bottom-after-thin;
+}
+
+/**
+对不同 device-pixel-ratio 的手机添加对应媒体查询，常见手机列表如下：
+
+Devices with -webkit-min-device-pixel-ratio: 1.0
+  All non-Retina Macs
+  Apple iPhone (1st generation)
+  Apple iPhone 3G
+  Apple iPhone 3GS
+  Apple iPad (1st generation)
+  Apple iPad 2
+  Apple iPad mini (1st generation)
+  Acer Iconia A500
+  Samsung Galaxy Tab 10.1
+  Samsung Galaxy S
+
+Devices with -webkit-min-device-pixel-ratio: 1.3
+  Asus MemoPad HD 7
+  Google Nexus 7 (2012 model)
+
+Devices with -webkit-min-device-pixel-ratio: 1.4
+  Nokia Lumia 520
+
+Devices with -webkit-min-device-pixel-ratio: 1.5
+  Google Nexus S
+  HTC Desire
+  HTC Desire HD
+  HTC Incredible S
+  HTC Velocity
+  HTC Sensation
+  Kindle Fire HD
+  Samsung Galaxy S II
+  Sony Xperia Tablet Z
+  Sony Xperia U
+
+Devices with -webkit-min-device-pixel-ratio: 2.0
+  All Macs with Retina displays
+  Apple iPhone 4
+  Apple iPhone 4S
+  Apple iPhone 5
+  Apple iPhone 5c
+  Apple iPhone 5s
+  Apple iPhone 6
+  Apple iPhone 6s
+  Apple iPhone 7
+  Apple iPad (3rd generation)
+  Apple iPad 4
+  Apple iPad Air
+  Apple iPad mini (2rd generation)
+  HTC One X
+  Google Galaxy Nexus
+  Google Nexus 4
+  Google Nexus 7 (2013 model)
+  Google Nexus 10
+  Motorola Moto X
+  Samsung Galaxy S III
+  Samsung Galaxy Note II
+  Sony Xperia S
+  Sony Xperia T
+
+Devices with -webkit-min-device-pixel-ratio: 2.6
+  Nokia Lumia 930
+  Google Nexus 5X
+
+Devices with -webkit-min-device-pixel-ratio: 3.0
+  HTC One (M7)
+  HTC Butterfly
+  Huawei Honor 6
+  Huawei Mate 9
+  Apple iPhone 6 Plus
+  Apple iPhone 6s Plus
+  Apple iPhone 7 Plus
+  LG G2
+  Nexus 5
+  Nexus 6
+  Motorola Moto G4
+  OnePlus One
+  Oppo Find 7 (X9076)
+  Samsung Galaxy S4
+  Samsung Galaxy Note 3
+  Samsung Galaxy Note 4
+  Sony Xperia Z
+  Xiaomi Mi 3
+  注意这里采用了 -webkit-device-pixel-ratio, 而非 -webkit-min-device-pixel-ratio.
+ */
+@each $devicePixelRatio in (1.3, 1.4, 1.5, 1.6, 1.7, 2, 2.25, 2.6, 3) {
+  @media only screen and (-webkit-device-pixel-ratio: #{$devicePixelRatio}) {
+    %height-thin {
+      transform: scaleY(1 / $devicePixelRatio);
+    }
+
+    %width-thin {
+      transform: scaleX(1 / $devicePixelRatio);
+    }
+  }
+}

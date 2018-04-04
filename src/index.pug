@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title 终焉
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no')
+    meta(name='description' content='终焉')
+    meta(name='keywords' content='终焉')
+    meta(name='format-detection' content='telephone=no,email=no')
+    meta(name='apple-mobile-web-app-status-bar-style' content='blank')
+    meta(name='apple-mobile-web-app-capable' content='yes')
+    meta(name='renderer' content='webkit')
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    script.
+      (window.__setFontSize__ = function () {
+        document.documentElement.style.fontSize = Math.min(640, Math.max(document.documentElement.clientWidth, 320)) / 375 * 14 + 'px'
+      })();
+      (window.__setDevicePixelRatio__ = function () {
+        document.documentElement.setAttribute('device-pixel-ratio', Math.min(3, Math.max(1, window.devicePixelRatio || 1)).toFixed(0))
+      })();
+  body
+    #app

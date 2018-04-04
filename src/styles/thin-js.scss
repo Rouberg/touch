@@ -1,0 +1,161 @@
+// 一个物理像素(非逻辑像素)为1px的水平线条
+%height-thin {
+  height: 1px;
+}
+
+// 一个物理像素(非逻辑像素)为1px的垂直线条
+%width-thin {
+  width: 1px;
+}
+
+// 绝对定位的伪元素
+%pseudo-absolute {
+  content: ' ';
+  position: absolute;
+  box-sizing: border-box;
+}
+
+// 薄高度(一个物理像素)的伪元素
+%pseudo-height-thin {
+  width: 100%;
+  @extend %pseudo-absolute;
+  @extend %height-thin;
+}
+
+// 薄宽度(一个物理像素)的伪元素
+%pseudo-width-thin {
+  height: 100%;
+  @extend %pseudo-absolute;
+  @extend %width-thin;
+}
+
+// 位于元素顶部、使用before伪元素构建的薄线条(一个物理像素)
+%top-before-thin {
+  position: relative;
+
+  &::before {
+    left: 0;
+    top: 0;
+    transform-origin: top;
+    @extend %pseudo-height-thin;
+  }
+}
+
+// 位于元素顶部、使用after伪元素构建的薄线条(一个物理像素)
+%top-after-thin {
+  position: relative;
+
+  &::after {
+    left: 0;
+    top: 0;
+    transform-origin: top;
+    @extend %pseudo-height-thin;
+  }
+}
+
+// 位于元素底部、使用before伪元素构建的薄线条(一个物理像素)
+%bottom-before-thin {
+  position: relative;
+
+  &::before {
+    left: 0;
+    bottom: 0;
+    transform-origin: bottom;
+    @extend %pseudo-height-thin;
+  }
+}
+
+// 位于元素底部、使用after伪元素构建的薄线条(一个物理像素)
+%bottom-after-thin {
+  position: relative;
+
+  &::after {
+    left: 0;
+    bottom: 0;
+    transform-origin: bottom;
+    @extend %pseudo-height-thin;
+  }
+}
+
+// 位于元素左边、使用before伪元素构建的薄线条(一个物理像素)
+%left-before-thin {
+  position: relative;
+
+  &::before {
+    left: 0;
+    top: 0;
+    transform-origin: left;
+    @extend %pseudo-width-thin;
+  }
+}
+
+// 位于元素左边、使用after伪元素构建的薄线条(一个物理像素)
+%left-after-thin {
+  position: relative;
+
+  &::after {
+    left: 0;
+    top: 0;
+    transform-origin: left;
+    @extend %pseudo-width-thin;
+  }
+}
+
+// 位于元素右边、使用before伪元素构建的薄线条(一个物理像素)
+%right-before-thin {
+  position: relative;
+
+  &::before {
+    right: 0;
+    top: 0;
+    transform-origin: right;
+    @extend %pseudo-width-thin;
+  }
+}
+
+// 位于元素右边、使用before伪元素构建的薄线条(一个物理像素)
+%right-after-thin {
+  position: relative;
+
+  &::after {
+    right: 0;
+    top: 0;
+    transform-origin: right;
+    @extend %pseudo-width-thin;
+  }
+}
+
+/**
+ * 顶部、左边默认使用before伪元素实现薄线条
+ * 底部、右边默认使用after伪元素实现薄线条
+ */
+
+%left-thin {
+  @extend %left-before-thin;
+}
+
+%right-thin {
+  @extend %right-after-thin;
+}
+
+%top-thin {
+  @extend %top-before-thin;
+}
+
+%bottom-thin {
+  @extend %bottom-after-thin;
+}
+
+// 设备像素比(device-pixel-ratio)在js中归约为1、2、3了
+// 对设备像素比为2和3的使用缩放
+@each $devicePixelRatio in (2, 3) {
+  [device-pixel-ratio='#{$devicePixelRatio}'] {
+    %height-thin {
+      transform: scaleY(1 / $devicePixelRatio);
+    }
+
+    %width-thin {
+      transform: scaleX(1 / $devicePixelRatio);
+    }
+  }
+}
