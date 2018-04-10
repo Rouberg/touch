@@ -1,0 +1,11 @@
+ul {
+  display: flex;
+  width: 400px;
+  margin: 40px auto;
+  border-bottom: 5px solid #f4f4f4;
+  padding-bottom: 5px;
+}
+
+ul li {
+  flex: 1;
+}

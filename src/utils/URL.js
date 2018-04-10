@@ -3,7 +3,7 @@
  */
 'use strict'
 
-import {isObject} from '../util'
+import {isObject} from './isObject'
 import {clone} from 'antools/util/clone'
 
 //  URL中的查询参数的处理对象

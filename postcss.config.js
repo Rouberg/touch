@@ -1,8 +1,7 @@
 export default {
   plugins: {
-    autoprefixer: {
-      browsers: ["> 1%", "last 2 versions", "not ie <= 8"]
-    },
+    'postcss-url': {},
+    'autoprefixer': {},
     'postcss-pxtorem': {
       rootValue: 14,
       unitPrecision: 5,

@@ -11,12 +11,31 @@ html
     meta(name='apple-mobile-web-app-capable' content='yes')
     meta(name='renderer' content='webkit')
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    link(ref='image/x-icon' rel='icon' href='./favicon.png')
+    link(ref='stylesheet' href='./styles/test.css')
     script.
       (window.__setFontSize__ = function () {
+        // 设置基准rem大小：屏幕宽度375px下14px为1rem(即屏幕100%的宽度为375/14个rem，即26.785714285714个rem)。
+        // 其它屏幕宽度基于这个比例进行缩放，虽然屏幕的宽度不一样，但屏幕100%的均为375/14个rem。
+        // 屏幕宽度最小只能为320px，再小视作320px；最大只能为640px，再大视作640px。
         document.documentElement.style.fontSize = Math.min(640, Math.max(document.documentElement.clientWidth, 320)) / 375 * 14 + 'px'
       })();
       (window.__setDevicePixelRatio__ = function () {
+        // 设置屏幕的基准设备像素比
+        // 基于window.devicePixelRatio的值。如果没有，默认为1
+        // 它只可能是1，2，3
+        // 大于3视作3，小于1视作1
+        // 如果是有小数则四舍五入
         document.documentElement.setAttribute('device-pixel-ratio', Math.min(3, Math.max(1, window.devicePixelRatio || 1)).toFixed(0))
       })();
   body
+    script(src='./entry.js')
     #app
+      h2 终焉
+      ul
+        li a
+        li b
+        li c
+        li d
+        li e
+        li f
