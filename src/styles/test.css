@@ -1,11 +1,14 @@
 ul {
   display: flex;
-  width: 400px;
+  width: 100%;
   margin: 40px auto;
   border-bottom: 5px solid #f4f4f4;
-  padding-bottom: 5px;
+  padding: 0;
 }
 
 ul li {
   flex: 1;
+  list-style-type: none;
+  text-align: center;
 }
+
