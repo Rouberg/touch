@@ -1,6 +1,6 @@
-// opacify
+// 借助宿主环境中的canvas元素将一个png图片变得不透明的jpeg图片
 
-const loopRequest = function (callback, stop) {
+const loopRequest = function (callback: (() => void), stop: (() => boolean)) {
   requestAnimationFrame(function () {
     if (!stop()) {
       loopRequest(callback, stop)
@@ -10,7 +10,7 @@ const loopRequest = function (callback, stop) {
   })
 }
 
-const untilHasImageSize = function (image) {
+const untilHasImageSize = function (image: HTMLImageElement) {
   return new Promise(resolve => {
     loopRequest(resolve, function () {
       return image.naturalWidth > 0 && image.naturalHeight > 0
@@ -25,7 +25,7 @@ const untilHasImageSize = function (image) {
  * @param {string} base64 源字符串，png格式图片的base64字符串
  * @returns {Promise} promise对象，它返回目标字符串，jpeg格式的图片的base64字符串
  */
-export default function opacify (base64) {
+export default function opacify (base64: string): Promise<string> {
   return new Promise(resolve => {
     let image = new Image()
     image.src = base64.toString()
@@ -37,7 +37,7 @@ export default function opacify (base64) {
       canvas.height = height
       let ctx = canvas.getContext('2d')
       ctx.rect(0, 0, width, height)
-      ctx.fillStyle = "#fff"
+      ctx.fillStyle = '#fff'
       ctx.fill()
       ctx.drawImage(image, 0, 0)
       resolve(canvas.toDataURL('image/jpeg'))
