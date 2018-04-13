@@ -1,4 +1,4 @@
-export default function setTitle (title: string): void {
+export default function setTitle (title) {
   document.title = title
   if (/weixin/i.test(navigator.userAgent)) {
     let iframe = document.createElement('iframe')

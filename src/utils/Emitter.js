@@ -1,5 +1,5 @@
-import isFunction from './isFunction'
 const HANDLERS = Symbol('Handlers')
+import {isFunction} from './index'
 
 export default class Emitter {
   /**

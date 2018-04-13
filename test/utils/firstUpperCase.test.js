@@ -5,6 +5,10 @@ describe('#utils/firstUpperCase', () => {
     expect(firstUpperCase('test')).toBe('Test')
   })
 
+  test('upper case first letter of "Test" should be "Test"', () => {
+    expect(firstUpperCase('Test')).toBe('Test')
+  })
+
   test('upper case first letter of "TEST" should be "TEST"', () => {
     expect(firstUpperCase('TEST')).toBe('TEST')
   })
