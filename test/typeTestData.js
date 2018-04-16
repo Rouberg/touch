@@ -13,7 +13,7 @@ const list = {
     {value: null, name: 'null'}
   ],
   'undefined': [
-    {value: undefined, name: ''}
+    {value: undefined, name: 'void 0'}
   ],
   'string': [
     {value: '', name: `''`},
@@ -24,11 +24,11 @@ const list = {
     {value: 'undefined', name: `'undefined'`}
   ],
   'array': [
-    {groupId: 1, value: [], name: '[]', equals: [3]},
+    {groupId: 1, value: [], name: '[]', equals: [1, 3, 4]},
     {groupId: 2, value: [1, 2, 3], name: '[1, 2, 3]'},
     /* eslint-disable no-array-constructor */
-    {groupId: 3, value: new Array(), name: 'new Array()', equals: [1]},
-    {groupId: 4, value: Array.prototype, name: 'Array.prototype'}
+    {groupId: 3, value: new Array(), name: 'new Array()', equals: [1, 3, 4]},
+    {groupId: 4, value: Array.prototype, name: 'Array.prototype', equals: [1, 3, 4]}
   ],
   'function': [
     {value: () => [], name: '() => []'},
@@ -48,11 +48,11 @@ const list = {
     {value: new Date(), name: 'new Date()'}
   ],
   'object': [
-    {groupId: 1, value: {}, name: '{}', equals: [2, 3, 4]},
-    {groupId: 2, value: Object.create(null), name: 'Object.create(null)', equals: [1, 3, 4]},
-    {groupId: 3, value: Object.create(Object.prototype), name: 'Object.create(Object.prototype)', equals: [1, 2, 4]},
-    {groupId: 4, value: Object.create({}), name: 'Object.create({})', equals: [1, 2, 3, 4]},
-    {groupId: 5, value: { __proto__: Array.prototype }, name: '{ __proto__: Array.prototype }'}
+    {groupId: 1, value: {}, name: '{}', equals: [1, 2, 3, 4, 5]},
+    {groupId: 2, value: Object.create(null), name: 'Object.create(null)', equals: [1, 2, 3, 4, 5]},
+    {groupId: 3, value: Object.create(Object.prototype), name: 'Object.create(Object.prototype)', equals: [1, 2, 3, 4, 5]},
+    {groupId: 4, value: Object.create({}), name: 'Object.create({})', equals: [1, 2, 3, 4, 5]},
+    {groupId: 5, value: { __proto__: Array.prototype }, name: '{ __proto__: Array.prototype }', equals: [1, 2, 3, 4, 5]}
   ],
   'regExp': [
     {value: /abc/, name: '/abc/'}

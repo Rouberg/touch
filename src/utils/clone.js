@@ -1,6 +1,4 @@
 import isArray from './isArray'
-import isSymbol from './isSymbol'
-import isFunction from './isFunction'
 
 /**
  * 一个深克隆函数
@@ -15,8 +13,7 @@ import isFunction from './isFunction'
  * @returns {*} 克隆后的数据
  */
 export default function clone (source) {
-  // typeof null === 'object' => true
-  if (source === null || typeof source !== 'object' || isFunction(source) || isSymbol(source)) {
+  if (source === null || typeof source !== 'object') {
     return source
   } else if (source instanceof Date) {
     return new Date(source)
