@@ -1,9 +1,8 @@
-import {default as chain, setRearHandler} from 'src/utils/chain'
+import chain from 'src/utils/chain'
 import {testData as testDataSource} from '../typeTestData'
 const testData = testDataSource.filter(item => item.type !== 'function')
 
 describe('#utils/chain', () => {
-  setRearHandler(() => [])
 
   describe('basic test', () => {
     const fn = jest.fn()
@@ -135,10 +134,10 @@ describe('#utils/chain', () => {
       const a = jest.fn()
       const b = jest.fn()
       const c = jest.fn()
-      const result = chain([a, b], c)
       a.mockResolvedValue('a')
       b.mockResolvedValue('b')
       c.mockResolvedValue('c')
+      const result = chain([a, b], c)
       expect(result instanceof Promise).toBeTruthy()
       result.then(value => {
         expect(value).toBe('c')
@@ -146,6 +145,55 @@ describe('#utils/chain', () => {
         expect(b.mock.calls.length).toBe(1)
         expect(c.mock.calls.length).toBe(1)
         expect(c.mock.calls[0][0]).toEqual(['a', 'b'])
+        done()
+      })
+    })
+
+    it('with data as expected', done => {
+      const a = jest.fn()
+      const b = jest.fn()
+      const c = jest.fn()
+      const d = jest.fn()
+      const e = jest.fn()
+      const data1 = 'data1'
+      const data2 = 'data2'
+      a.mockResolvedValue('a')
+      b.mockReturnValue('b')
+      c.mockResolvedValue('c')
+      d.mockResolvedValue('d')
+      e.mockResolvedValue('e')
+      const result = chain([[data1, a], [data2, b, c], d], e)
+      expect(result instanceof Promise).toBeTruthy()
+      result.then(value => {
+        expect(a.mock.calls.length).toBe(1)
+        expect(b.mock.calls.length).toBe(1)
+        expect(c.mock.calls.length).toBe(1)
+        expect(d.mock.calls.length).toBe(1)
+        expect(e.mock.calls.length).toBe(1)
+        expect(a.mock.calls[0][0]).toEqual(data1)
+        expect(b.mock.calls[0][0]).toEqual(data2)
+        expect(c.mock.calls[0][0]).toEqual('b')
+        expect(e.mock.calls[0][0]).toEqual(['a', 'c', 'd'])
+        done()
+      })
+    })
+
+    it('when prev rejected, remain never called', done => {
+      const a = jest.fn()
+      const b = jest.fn()
+      const c = jest.fn()
+      const d = jest.fn()
+      const e = jest.fn()
+      a.mockResolvedValue('a')
+      b.mockRejectedValue('b')
+      const result = chain([a, b], c, d, e)
+      expect(result instanceof Promise).toBeTruthy()
+      result.then(() => {
+        expect(a.mock.calls.length).toBe(1)
+        expect(b.mock.calls.length).toBe(1)
+        expect(c.mock.calls.length).toBe(0)
+        expect(d.mock.calls.length).toBe(0)
+        expect(e.mock.calls.length).toBe(0)
         done()
       })
     })

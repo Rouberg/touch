@@ -72,13 +72,6 @@ const chain = function (...list) {
   }, source)
 }
 
-export const _chain = chain
-
-// chain执行链中，当一个promise的状态变成rejected时的默认状态传递函数
-let rejectHandler = reason => Promise.reject(reason)
-
-let rearHandler = reason => console.error(reason)
-
 /**
  * 链式调用一串ajax请求(接受串行、并行或者进一步组合)，并在调用链结尾自动调用toast和捕获错误
  * 当前函数需要直接挂载到Vue对应的viewModel上(这一方面限制了调用条件，同时也是为了简化了调用时的API)
@@ -87,17 +80,18 @@ let rearHandler = reason => console.error(reason)
  * 第一个位置包含任意数组中的第一项。
  * 函数如果是异步的，应该返回一个promise。函数如果是同步的，可以返回promise也可以正常return.
  * 第一个参数如果不是函数，则直接作为参数扔给链上的第二个promise函数
- * @param [list = []] {Array<Function>} 调用链列表
- * @returns {Promise<T | void>} 返回一个promise，该promise由执行链中的最后一个调用函数返回
+ * @param list {Function | Array<Function>} 调用链列表
+ * @returns {Promise} 返回一个promise，该promise由执行链中的最后一个调用函数返回
  */
-export default function (...list) {
-  return chain.apply(this, list).then(value => Promise.resolve(value), rejectHandler).catch(rearHandler)
+function wrap (...list) {
+  return chain.apply(this, list)
+    .then(value => Promise.resolve(value), isFunction(wrap.rejected) ? wrap.rejected : reason => Promise.reject(reason))
+    .catch(error => isFunction(wrap.catch) ? wrap.catch(error) : Promise.reject(error))
 }
 
-export const setRejectHandler = handler => {
-  rejectHandler = handler
-}
+// e.g. toast, alert, console.warn (toast is a function to pop msg)
+wrap.rejected = reason => console.warn('[wrap.rejected]:', reason)
 
-export const setRearHandler = handler => {
-  rearHandler = handler
-}
+wrap.catch = console.error
+
+export default wrap
