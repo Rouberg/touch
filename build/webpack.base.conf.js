@@ -1,16 +1,9 @@
-'use strict'
 const path = require('path')
 const vuxLoader = require('vux-loader')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const { src } = require('./dist')
-
-// 添加私有库的列表，添加到babel的预编译列表中，否则私有库的es6不会转换成es5,导致报错
 const resolve = dir => path.join(__dirname, '..', dir)
-
-const privateLibraries = [
-  resolve('node_modules/antools')
-]
+const src = resolve('src')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -21,7 +14,7 @@ const sourceMap = !isProduction
 const extract = function (use, on) {
   if (on) {
     const fallback = use.shift()
-    return ExtractTextPlugin.extract({fallback, use})
+    return ExtractTextPlugin.extract({ fallback, use })
   } else {
     return use
   }
@@ -29,7 +22,7 @@ const extract = function (use, on) {
 
 const baseWebpackConfig = {
   entry: {
-    app: ['babel-polyfill', src + '/main.js']
+    main: src + '/main.js'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -50,7 +43,7 @@ const baseWebpackConfig = {
       },
       {
         test: /\.js$/,
-        include: [src, ...privateLibraries, resolve('node_modules/webpack-dev-server/client')],
+        include: [src, resolve('node_modules/webpack-dev-server/client')],
         loader: 'babel-loader'
       },
       {
@@ -61,14 +54,18 @@ const baseWebpackConfig = {
             localIdentName: '[name]-[local]',
             camelCase: true
           },
-          cssSourceMap: sourceMap,
-          cacheBusting: true,
           loaders: {
             scss: extract([
               'vue-style-loader',
               { loader: 'css-loader', options: { sourceMap, importLoaders: 2 } },
               { loader: 'postcss-loader', options: { sourceMap } },
               { loader: 'sass-loader', options: { sourceMap } }
+            ], isProduction),
+            less: extract([
+              'vue-style-loader',
+              { loader: 'css-loader', options: { sourceMap, importLoaders: 2 } },
+              { loader: 'postcss-loader', options: { sourceMap } },
+              { loader: 'less-loader', options: { sourceMap } }
             ], isProduction),
             css: extract([
               'vue-style-loader',
@@ -136,6 +133,10 @@ const baseWebpackConfig = {
         options: {
           name: 'fonts/[name].[hash:5].[ext]'
         }
+      },
+      {
+        test: /\.yml$/,
+        use: [ 'json-loader', 'yaml-loader' ]
       }
     ]
   },
@@ -155,5 +156,12 @@ const baseWebpackConfig = {
 
 module.exports = vuxLoader.merge(baseWebpackConfig, {
   options: { showVuxVersionInfo: false },
-  plugins: [ 'vux-ui', 'duplicate-style' ]
+  plugins: [
+    {
+      name: 'less-theme',
+      path: 'src/styles/vux-theme.less' // 相对项目根目录路径
+    },
+    'vux-ui',
+    'duplicate-style'
+  ]
 })

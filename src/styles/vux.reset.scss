@@ -1,0 +1,31 @@
+.vux-tab.scrollable .vux-tab-item {
+  flex: 1;
+}
+
+body {
+  .weui-cell {
+    &::before,
+    &::after {
+      transform-origin: bottom;
+    }
+  }
+
+  .weui-cells {
+    font-size: 15px;
+    color: #333;
+  }
+}
+
+//body .weui-toast__content {
+//  padding: 6px;
+//  line-height: 16px;
+//}
+
+.vux-loading {
+  position: relative;
+  z-index: 100;
+
+  .weui-mask_transparent {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}

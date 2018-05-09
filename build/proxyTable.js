@@ -2,16 +2,20 @@
 // 仅在开发时需要使用，生产环境通过服务器配置解决，或者，不再存在跨域问题等。
 
 const domain = {
-  dev: '',
-  test: ''
+  dev: '/'
 }
 
-const remote = domain.test
+const remote = domain.dev
 
 module.exports = {
-  '/api/**': {
+  '/product/**': {
     target: remote,
     secure: false,
-    changeOrigin:true
+    changeOrigin: true
+  },
+  '/api/data/**': {
+    target: remote,
+    secure: false,
+    changeOrigin: true
   }
 }

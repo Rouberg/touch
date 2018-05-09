@@ -1,12 +1,9 @@
-'use strict'
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const baseWebpackConfig = require('./webpack.base.conf')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 const proxyTable = require('./proxyTable')
-const { hqApp } = require('./dist')
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   devtool: 'inline-source-map',
@@ -16,17 +13,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   },
   devServer: {
     clientLogLevel: 'warning',
-    historyApiFallback: {
-      rewrites: [
-        { from: /\/modules\/issue\/.*/, to: '/index.html' }
-      ]
-    },
+    historyApiFallback: true,
     hot: true,
     contentBase: false,
     compress: true,
     host: 'localhost',
-    port: 8081,
-    open: true,
+    port: 8082,
+    open: false,
     overlay: { warnings: false, errors: true },
     publicPath: '/',
     proxy: proxyTable,
@@ -42,7 +35,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       }
     }),
     new StyleLintPlugin({
-      files: ['*/modules/issue/**/*.vue', '*/modules/issue/**/*.scss', '*/modules/issue/**/*.css'],
+      files: ['**/*.vue', '**/*.scss', '**/*.less', '**/*.css'],
       syntax: 'scss'
     }),
     new webpack.HotModuleReplacementPlugin(),
@@ -52,14 +45,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: './src/index.pug',
       filename: 'index.html',
       inject: true
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: hqApp + '/static',
-        to: 'static',
-        ignore: ['.*']
-      }
-    ])
+    })
   ]
 })
 

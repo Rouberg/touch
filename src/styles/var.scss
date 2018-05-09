@@ -3,9 +3,13 @@
 // UI距离屏幕左右边界的距离
 $breath: 15px;
 
+// 1px物理像素的线的默认颜色
+$color-default-hairlines: #f0f0f0;
+
 $line-height: 20px;
 
 $bg-gray: #f7f7f7;
+$bg-placeholder: #f2f2f2;
 
 $color-primary: #00b0ff;
 
@@ -15,12 +19,3 @@ $color-title: #646464;
 // 标题字体大小
 $font-title: 15px;
 
-// 标题高度
-$height-title: 40px;
-$bg-title: $bg-gray;
-
-$bg-tab: #fff;
-$height-tab: 45px;
-$font-tab: 15px;
-$color-tab: #666;
-$color-border-tab: $color-primary;

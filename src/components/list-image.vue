@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import HqImage from './hq-image'
+import HqImage from './img2'
 import {chain} from '../util'
 
 export default {

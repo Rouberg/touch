@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+@import "vux.reset";
+
 // 全局自动引入，组件不应引入该文件。期望的是它的优先级次低(最低的是normalize.css)
 // 这里面是一些全局使用的CSS样式
 // 虽然webpack的css优化插件可以去重，但是我们不应依赖它，而在于开发的时候尽量避免产生重复代码
@@ -29,49 +31,12 @@
   background-color: $bg-gray;
 }
 
-.vux-loading {
-  position: relative;
-  z-index: 100;
-}
-
-.weui-mask_transparent {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-body .weui-toast__content {
-  font-size: 12px;
-  padding: 6px;
-  line-height: 16px;
-}
-
 body {
   overflow: hidden;
 }
 
-.no-border {
-  .weui-cells {
-    margin-top: 0;
-    font-size: 13px;
-
-    &::before,
-    &::after {
-      border: 0 none;
-      content: unset;
-    }
-  }
-
-  .weui-cell {
-    padding-top: 6px;
-    padding-bottom: 6px;
-  }
-
-  .vux-cell-placeholder {
-    color: #ccc;
-  }
-}
-
-// 告警色
-.color-warn {
-  color: #ff0c0c !important;
+.image-block {
+  display: block;
+  width: 100%;
 }
 

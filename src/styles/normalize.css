@@ -28,7 +28,8 @@ html {
 
 body {
   margin: 0; /* 1 */
-  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif; /* 2 */
+  font-family: "SF Pro SC", "SF Pro Text", "PingFang SC", -apple-system, "Helvetica Neue", STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif; /* 2 */
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Grouping content
@@ -50,11 +51,13 @@ pre {
 /**
  * 1. Remove the gray background on active links in IE 10.
  * 2. [附：移除掉a链接的下划线]
+ * 3. [附：继承父元素的颜色]
  */
 
 a {
   background-color: transparent; /* 1 */
   text-decoration: none; /* 2 */
+  color: inherit; /* 3 */
 }
 
 /**
@@ -257,4 +260,8 @@ ul {
 
 iframe {
   border: 0 none;
+}
+
+p {
+  margin: 0;
 }

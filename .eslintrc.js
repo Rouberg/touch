@@ -1,19 +1,22 @@
 module.exports = {
-  parser: 'babel-eslint',
+  root: true,
   parserOptions: {
-    sourceType: 'module'
-  },
-  extends: 'standard',
-  plugins: ['jest'],
-  rules: {
-    modules: true,
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    ecmaVersion: 8,
+    sourceType: 'module',
+    parser: 'babel-eslint'
   },
   env: {
-    browser: true,
-    commonjs: true,
     es6: true,
-    amd: true,
-    'jest/globals': true
+    browser: true,
   },
+  extends: [
+    'plugin:vue/essential',
+    'standard'
+  ],
+  plugins: ['vue'],
+  rules: {
+    "indent": ["warn", 2, {"SwitchCase": 1}],
+    "prefer-promise-reject-errors": 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+  }
 };
