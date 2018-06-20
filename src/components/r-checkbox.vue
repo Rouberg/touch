@@ -51,7 +51,7 @@
 <style lang="less">
   .component-r-checkbox {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
 
     > .slot {
@@ -67,7 +67,7 @@
     height: 16px;
     line-height: 16px;
     border-radius: 2px;
-    margin: 4px 6px 4px 0;
+    margin-right: 6px;
 
     &:before {
       content: ' ';
