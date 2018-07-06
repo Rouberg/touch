@@ -18,8 +18,6 @@ const persistDecorator = function (target, property, descriptor, mutations) {
     const storeValue = bin.getItem(property)
     if (storeValue) {
       const moduleName = findModuleName(store.state, target)
-      if (moduleName) {
-      }
       store.replaceState({...store.state, [moduleName]: {...target, [property]: storeValue}})
     }
   })
@@ -42,7 +40,6 @@ export const persist = function (...args) {
 }
 
 const storagePlugin = function (store) {
-  store.strict = false
   emitter.emit(INIT, {store})
   store.subscribe(mutation => emitter.emit(mutation.type))
 }
