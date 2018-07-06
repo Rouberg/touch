@@ -9,6 +9,9 @@ const cacheStore = {
   setItem (key, value) {
     cache[key] = clone(value)
   },
+  removeItem (key) {
+    delete cache[key]
+  },
   clear () {
     cache = {}
   }
@@ -21,6 +24,9 @@ const webStore = {
   },
   setItem (key, value) {
     localStorage.setItem(key, JSON.stringify(value))
+  },
+  removeItem (key) {
+    localStorage.removeItem(key)
   },
   clear () {
     localStorage.clear()
